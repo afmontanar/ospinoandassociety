@@ -29,19 +29,24 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        NumeroId = new javax.swing.JTextField();
+        NumeroId1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Historia de vehiculos");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        NumeroId.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa"));
+        NumeroId.setName("Nombre"); // NOI18N
+        jPanel1.add(NumeroId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 180, 40));
+
+        NumeroId1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
+        NumeroId1.setName("Nombre"); // NOI18N
+        jPanel1.add(NumeroId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 180, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +105,9 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField NumeroId;
+    private javax.swing.JTextField NumeroId1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

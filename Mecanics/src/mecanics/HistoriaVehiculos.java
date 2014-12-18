@@ -5,6 +5,8 @@
  */
 package mecanics;
 
+import utilities.ValidarCamposVacios;
+
 /**
  *
  * @author afmontanar
@@ -14,9 +16,15 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     /**
      * Creates new form HistoriaVehiculos
      */
+    private utilities.ModelosTablaU modelot;
+    private ValidarCamposVacios objectv;
+    
     public HistoriaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        String n[] = {"Cantidad","Marca","Referencia","Detalle","Rueda","Valor unitario","Valor total","Valor con descuento"};
+        this.modelot = new utilities.ModelosTablaU(n, jTable1);
+        jTable1.setModel(this.modelot);
     }
 
     /**
@@ -41,6 +49,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,6 +101,9 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jPanel2);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1200, 450));
+
+        jButton3.setText("Guardar");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 70, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,6 +168,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private javax.swing.JTextField NumeroId1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

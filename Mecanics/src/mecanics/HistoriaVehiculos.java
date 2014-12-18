@@ -18,10 +18,12 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
      */
     private utilities.ModelosTablaU modelot;
     private ValidarCamposVacios objectv;
+    private Object idCliente;
     
     public HistoriaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
+        initComponents();    
+        setLocationRelativeTo(null);
         String n[] = {"Cantidad","Marca","Referencia","Detalle","Rueda","Valor unitario","Valor total","Valor con descuento"};
         this.modelot = new utilities.ModelosTablaU(n, jTable1);
         jTable1.setModel(this.modelot);
@@ -76,6 +78,11 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 180, 50));
 
         jButton2.setText("jButton1");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 30, 40));
 
         jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
@@ -120,6 +127,12 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here: Aca voy ha buscar el dueno
+        Principal r=(Principal)super.getParent();
+        r.getGrillaCliente().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,4 +192,9 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    void setCliente(Object nombre, Object identificacion) {
+        this.jLabel3.setText(nombre+"");
+        this.idCliente = identificacion;
+    }
 }

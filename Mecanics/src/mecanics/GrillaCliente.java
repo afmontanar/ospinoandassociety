@@ -220,9 +220,9 @@ public class GrillaCliente extends javax.swing.JDialog {
     private void buscar() {
         this.modelot.vaciarTabla();
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `Cliente` WHERE `primeroNombre` LIKE '%"+this.nombre1.getText()+"' || "
-                    + "`segunNombre` LIKE '%"+this.nombre2.getText()+"' || `primeroApellido` LIKE '%"+this.apellido1.getText()+"' || `segundoApellido`"
-                    + " LIKE '%"+this.apellido2.getText()+"' || `numeroId` LIKE '%"+this.identificacion.getText()+"' || `direccion` LIKE '%"+this.Direccion.getText()+"' || `celular` LIKE '%"+this.Celular.getText()+"' ");
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `Cliente` WHERE `primeroNombre` LIKE '%"+this.nombre1.getText()+"%' AND "
+                    + "`segunNombre` LIKE '%"+this.nombre2.getText()+"%' AND `primeroApellido` LIKE '%"+this.apellido1.getText()+"%' AND `segundoApellido`"
+                    + " LIKE '%"+this.apellido2.getText()+"%' AND `numeroId` LIKE '%"+this.identificacion.getText()+"%' AND `direccion` LIKE '%"+this.Direccion.getText()+"%' AND `celular` LIKE '%"+this.Celular.getText()+"%' ");
             while(MysqlConsulta.next()){
                 String d[]={MysqlConsulta.getString("primeroNombre"), MysqlConsulta.getString("segunNombre"),MysqlConsulta.getString("primeroApellido"),MysqlConsulta.getString("segundoApellido"),MysqlConsulta.getString("numeroId"),  MysqlConsulta.getString("direccion"),MysqlConsulta.getString("celular"),MysqlConsulta.getString("detalles")};
                 this.modelot.ingresarUsuarioM(d);

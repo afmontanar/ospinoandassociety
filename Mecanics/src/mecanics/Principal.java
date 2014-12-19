@@ -16,6 +16,7 @@ public class Principal extends javax.swing.JFrame {
     private final Cliente cliente;
     private final HistoriaVehiculos hvehiculo;
     private final GrillaCliente gcliente;
+    private final GrillaChofer gchofer;
     /**
      * Creates new form Principal
      */
@@ -25,6 +26,7 @@ public class Principal extends javax.swing.JFrame {
         this.cliente = new Cliente(this, true);
         this.hvehiculo = new HistoriaVehiculos(this, true);
         this.gcliente = new GrillaCliente(this, true);
+        this.gchofer = new GrillaChofer(this, true);
     }
 
    
@@ -118,7 +120,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-       
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed

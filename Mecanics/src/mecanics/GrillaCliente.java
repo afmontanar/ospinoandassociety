@@ -19,15 +19,16 @@ public class GrillaCliente extends javax.swing.JDialog {
     /**
      * Creates new form GrillaCliente
      */
-    private utilities.ModelosTablaU modelot;
+    private utilities.ModelosTablaS modelot;
     
     public GrillaCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();   
         setLocationRelativeTo(null);
         String n[] = {"Nombre 1","Nombre 2","Apellido 1","Apellido 2","Numero Id","Direccion","Celular","Detalles"};
-        this.modelot = new utilities.ModelosTablaU(n, jTable1);
+        this.modelot = new utilities.ModelosTablaS(n, jTable1);
         jTable1.setModel(this.modelot);
+        this.llenarTabla();
     }
 
     /**
@@ -50,6 +51,7 @@ public class GrillaCliente extends javax.swing.JDialog {
         apellido2 = new javax.swing.JTextField();
         nombre1 = new javax.swing.JTextField();
         Direccion = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -141,6 +143,14 @@ public class GrillaCliente extends javax.swing.JDialog {
         });
         jPanel1.add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 150, 40));
 
+        jButton1.setText("LLenar tabla con datos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,6 +208,11 @@ public class GrillaCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.llenarTabla();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -209,6 +224,7 @@ public class GrillaCliente extends javax.swing.JDialog {
     private javax.swing.JTextField apellido1;
     private javax.swing.JTextField apellido2;
     private javax.swing.JTextField identificacion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -236,5 +252,19 @@ public class GrillaCliente extends javax.swing.JDialog {
     private void enviarHv() {
         Principal r=(Principal) super.getParent();
         r.getHistoriaVehiculos().setCliente(this.modelot.getValueAt(this.jTable1.getSelectedRow(), 0),this.modelot.getValueAt(this.jTable1.getSelectedRow(), 4));
+    }
+
+    private void llenarTabla() {
+        this.modelot.vaciarTabla();
+        try {
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `Cliente`");
+            while(MysqlConsulta.next()){
+                String d[]={MysqlConsulta.getString("primeroNombre"), MysqlConsulta.getString("segunNombre"),MysqlConsulta.getString("primeroApellido"),MysqlConsulta.getString("segundoApellido"),MysqlConsulta.getString("numeroId"),  MysqlConsulta.getString("direccion"),MysqlConsulta.getString("celular"),MysqlConsulta.getString("detalles")};
+                this.modelot.ingresarUsuarioM(d);
+            }
+        this.modelot.reload();
+        } catch (SQLException ex) {
+            Logger.getLogger(GrillaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

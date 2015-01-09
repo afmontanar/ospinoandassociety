@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-12-2014 a las 11:18:55
+-- Tiempo de generación: 29-12-2014 a las 07:58:55
 -- Versión del servidor: 5.5.40-0ubuntu1
 -- Versión de PHP: 5.5.12-2ubuntu4.1
 
@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mecanics`
 --
-
+CREATE database mecanics;
+use mecanics;
 -- --------------------------------------------------------
 
 --

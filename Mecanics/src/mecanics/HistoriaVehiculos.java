@@ -5,6 +5,9 @@
  */
 package mecanics;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import utilities.ValidarCamposVacios;
 
 /**
@@ -16,17 +19,20 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     /**
      * Creates new form HistoriaVehiculos
      */
-    private utilities.ModelosTablaU modelot;
+    private utilities.ModelosTabla modelot;
     private ValidarCamposVacios objectv;
     private Object idCliente;
-    
+    private String idChofer;
+      
     public HistoriaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();    
         setLocationRelativeTo(null);
         String n[] = {"Cantidad","Marca","Referencia","Detalle","Rueda","Valor unitario","Valor total","Valor con descuento"};
-        this.modelot = new utilities.ModelosTablaU(n, jTable1);
-        jTable1.setModel(this.modelot);
+        this.modelot = new utilities.ModelosTabla(n, jTable1);
+        this.jTable1.setModel(this.modelot);
+        TableColumn column = this.jTable1.getColumnModel().getColumn(7);
+        column.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTRC(this)));
     }
 
     /**
@@ -42,9 +48,9 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         NumeroId = new javax.swing.JTextField();
         NumeroId1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        chofer = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        dueno = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -52,6 +58,8 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        Total = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,14 +70,24 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
         NumeroId.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa"));
         NumeroId.setName("Nombre"); // NOI18N
+        NumeroId.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                NumeroIdCaretUpdate(evt);
+            }
+        });
+        NumeroId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                NumeroIdFocusGained(evt);
+            }
+        });
         jPanel1.add(NumeroId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 180, 40));
 
         NumeroId1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
         NumeroId1.setName("Nombre"); // NOI18N
         jPanel1.add(NumeroId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 180, 40));
 
-        jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Chofer"));
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 180, 50));
+        chofer.setBorder(javax.swing.BorderFactory.createTitledBorder("Chofer"));
+        jPanel1.add(chofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 180, 50));
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -79,8 +97,8 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 60, 30, 40));
 
-        jLabel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dueño"));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 180, 50));
+        dueno.setBorder(javax.swing.BorderFactory.createTitledBorder("Dueño"));
+        jPanel1.add(dueno, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 180, 50));
 
         jButton2.setText("jButton1");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +126,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, 10, 1980, -1));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1980, -1));
 
         jScrollPane2.setViewportView(jPanel2);
 
@@ -116,6 +134,18 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
         jButton3.setText("Guardar");
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 70, -1, -1));
+
+        Total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Total.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
+        jPanel1.add(Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 590, 240, 50));
+
+        jToggleButton1.setText("Agregar registro");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,7 +157,9 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,76 +168,77 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here: Aca voy ha buscar el dueno
         Principal r=(Principal)super.getParent();
-        r.getGrillaCliente().setVisible(true);
+        r.setGrillaClienteVisibility(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Principal r = (Principal) super.getParent();
-        
+        if(null!=this.idCliente){
+            Principal r = (Principal) super.getParent();
+            r.getGrillaChofer(this.idCliente.toString());
+        }else{
+            JOptionPane.showMessageDialog(this, "No a seleccionado dueno");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        Object []a = {"","","","","","","",""};         
+        this.modelot.ingresarUsuario(a);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void NumeroIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NumeroIdFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NumeroIdFocusGained
+
+    private void NumeroIdCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_NumeroIdCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NumeroIdCaretUpdate
+
+//     public void sumaDes(int suplemento){
+        public void sumaDes(){
+        int sumTot=0;
+        for(int i=0;i<this.jTable1.getRowCount();i++){
+            try{
+            int parseInt = Integer.parseInt((String) this.modelot.getValueAt(i, 7));
+            sumTot = sumTot + parseInt;
+            }catch(Exception e){
+               sumTot=+sumTot;  
+            }
+        this.Total.setText(sumTot+""); 
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HistoriaVehiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HistoriaVehiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HistoriaVehiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HistoriaVehiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                HistoriaVehiculos dialog = new HistoriaVehiculos(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NumeroId;
     private javax.swing.JTextField NumeroId1;
+    private javax.swing.JLabel Total;
+    private javax.swing.JLabel chofer;
+    private javax.swing.JLabel dueno;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
     void setCliente(Object nombre, Object identificacion) {
-        this.jLabel3.setText(nombre+"");
+        this.dueno.setText(nombre+"");
         this.idCliente = identificacion;
+    }
+
+    void obtenerDChofer(String identificacion, String nombres) {
+        this.chofer.setText(nombres);
+        this.idChofer = identificacion;
     }
 }

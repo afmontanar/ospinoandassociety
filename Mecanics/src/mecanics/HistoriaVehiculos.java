@@ -124,7 +124,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1970, -1));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1980, -1));
 
         jScrollPane2.setViewportView(jPanel2);
 
@@ -262,7 +262,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void guardar() {
         String i = ((javax.swing.JTextField)fecha.getDateEditor().getUiComponent()).getText();
         try {
-            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `indice`, `valorTotal`, `valorTotalConDescuento`) VALUES ('"+this.nombre.getText()+"', '"+this.placa.getText()+"', '"+this.dueno.getText()+"', '"+this.chofer.getText()+"', '"+i+"', '1', '12000', '160000'");
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `indice`, `valorTotal`, `valorTotalConDescuento`) VALUES ('"+this.nombre.getText()+"', '"+this.placa.getText()+"', '"+this.dueno.getText()+"', '"+this.chofer.getText()+"', '"+i+"', '', '"+this.Total.getText()+"', '"+this.Totaldes.getText()+"'");
         } catch (SQLException ex) {
             Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -32,6 +32,7 @@ public class TexfieldCxVu extends JTextField {
         try {
             
             this.r.multiCxVu(this.getText());
+            this.r.sumatot();
         } catch (Exception e) {
         }
     }

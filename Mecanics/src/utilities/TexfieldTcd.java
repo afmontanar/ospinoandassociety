@@ -37,11 +37,6 @@ public class TexfieldTcd extends JTextField {
                 NumeroIdCaretUpdate(evt);
             }
         });
-//        this.addFocusListener(new java.awt.event.FocusAdapter() {
-//            public void focusGained(java.awt.event.FocusEvent evt) {
-//                esteIdFocusGained(evt);
-//            }
-//        });
     }
 
     private void esteIdFocusLost(java.awt.event.FocusEvent evt) {

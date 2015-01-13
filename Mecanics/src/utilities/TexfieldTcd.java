@@ -14,12 +14,12 @@ import mecanics.HistoriaVehiculos;
  *
  * @author afmontanar
  */
-public class TexfieldTRC extends JTextField {
+public class TexfieldTcd extends JTextField {
 
     private boolean salto;
     private HistoriaVehiculos r;
 
-    public TexfieldTRC(HistoriaVehiculos r) {
+    public TexfieldTcd(HistoriaVehiculos r) {
         super();
         this.r=r;
         this.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -56,7 +56,7 @@ public class TexfieldTRC extends JTextField {
 
     public void tratamientoEvtF() {
         try {
-            this.r.sumaDes();
+            this.r.sumatot();
         } catch (Exception e) {
         }
     }

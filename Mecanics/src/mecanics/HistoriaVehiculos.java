@@ -5,6 +5,9 @@
  */
 package mecanics;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
@@ -33,6 +36,10 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         this.jTable1.setModel(this.modelot);
         TableColumn column = this.jTable1.getColumnModel().getColumn(7);
         column.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTRC(this)));
+        TableColumn column1 = this.jTable1.getColumnModel().getColumn(5);
+        column1.setCellEditor(new DefaultCellEditor(new utilities.TexfieldCxVu(this)));
+        TableColumn column2 = this.jTable1.getColumnModel().getColumn(6);
+        column2.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTcd(this)));
     }
 
     /**
@@ -46,13 +53,13 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        NumeroId = new javax.swing.JTextField();
-        NumeroId1 = new javax.swing.JTextField();
+        placa = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         chofer = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         dueno = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fecha = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -60,6 +67,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         Total = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
+        Totaldes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,23 +76,13 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jLabel1.setText("Historia de vehiculos");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
-        NumeroId.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa"));
-        NumeroId.setName("Nombre"); // NOI18N
-        NumeroId.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                NumeroIdCaretUpdate(evt);
-            }
-        });
-        NumeroId.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                NumeroIdFocusGained(evt);
-            }
-        });
-        jPanel1.add(NumeroId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 180, 40));
+        placa.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa"));
+        placa.setName("Nombre"); // NOI18N
+        jPanel1.add(placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 180, 40));
 
-        NumeroId1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
-        NumeroId1.setName("Nombre"); // NOI18N
-        jPanel1.add(NumeroId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 180, 40));
+        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
+        nombre.setName("nombre"); // NOI18N
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 180, 40));
 
         chofer.setBorder(javax.swing.BorderFactory.createTitledBorder("Chofer"));
         jPanel1.add(chofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 180, 50));
@@ -108,8 +106,8 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 30, 40));
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 180, 40));
+        fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 180, 40));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -126,18 +124,23 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1980, -1));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1970, -1));
 
         jScrollPane2.setViewportView(jPanel2);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1200, 450));
 
         jButton3.setText("Guardar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 70, -1, -1));
 
         Total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Total.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
-        jPanel1.add(Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 590, 240, 50));
+        jPanel1.add(Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 590, 240, 50));
 
         jToggleButton1.setText("Agregar registro");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +149,10 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, -1));
+
+        Totaldes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Totaldes.setBorder(javax.swing.BorderFactory.createTitledBorder("Total con descuento"));
+        jPanel1.add(Totaldes, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 590, 240, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,15 +192,13 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         // TODO add your handling code here:
         Object []a = {"","","","","","","",""};         
         this.modelot.ingresarUsuario(a);
+        this.sumaDes();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void NumeroIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NumeroIdFocusGained
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NumeroIdFocusGained
-
-    private void NumeroIdCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_NumeroIdCaretUpdate
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NumeroIdCaretUpdate
+        this.guardar();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 //     public void sumaDes(int suplemento){
         public void sumaDes(){
@@ -205,7 +210,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
             }catch(Exception e){
                sumTot=+sumTot;  
             }
-        this.Total.setText(sumTot+""); 
+        this.Totaldes.setText(sumTot+""); 
         }
     }
     
@@ -214,15 +219,14 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField NumeroId;
-    private javax.swing.JTextField NumeroId1;
     private javax.swing.JLabel Total;
+    private javax.swing.JLabel Totaldes;
     private javax.swing.JLabel chofer;
     private javax.swing.JLabel dueno;
+    private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -230,6 +234,8 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JTextField placa;
     // End of variables declaration//GEN-END:variables
 
     void setCliente(Object nombre, Object identificacion) {
@@ -241,4 +247,39 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         this.chofer.setText(nombres);
         this.idChofer = identificacion;
     }
+
+    public void multiCxVu(String text) {
+        try{
+            int parseInt = Integer.parseInt(text);
+            int parseInt1 = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            int resultado = parseInt*parseInt1;
+            jTable1.setValueAt(resultado, jTable1.getSelectedRow(), 6);
+        }catch(Exception r){
+            
+        }
+    }
+
+    private void guardar() {
+        String i = ((javax.swing.JTextField)fecha.getDateEditor().getUiComponent()).getText();
+        try {
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `indice`, `valorTotal`, `valorTotalConDescuento`) VALUES ('"+this.nombre.getText()+"', '"+this.placa.getText()+"', '"+this.dueno.getText()+"', '"+this.chofer.getText()+"', '"+i+"', '1', '12000', '160000'");
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void sumatot() {
+        int sumTot=0;
+        for(int i=0;i<this.jTable1.getRowCount();i++){
+            try{
+            int parseInt = Integer.parseInt((String) this.modelot.getValueAt(i, 6));
+            sumTot = sumTot + parseInt;
+            }catch(Exception e){
+               sumTot=+sumTot;  
+            }
+        this.Total.setText(sumTot+""); 
+        }
+    }
+    
+    
 }

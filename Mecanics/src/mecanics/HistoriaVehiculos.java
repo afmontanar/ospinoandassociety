@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableColumn;
 import utilities.ValidarCamposVacios;
 
@@ -38,10 +39,21 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         column.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTRC(this)));
         TableColumn column1 = this.jTable1.getColumnModel().getColumn(5);
         column1.setCellEditor(new DefaultCellEditor(new utilities.TexfieldCxVu(this)));
-        TableColumn column2 = this.jTable1.getColumnModel().getColumn(6);
-        column2.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTcd(this)));
+//        TableColumn column2 = this.jTable1.getColumnModel().getColumn(6);
+//        column2.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTcd(this)));      
+//        this.modelot.addTableModelListener(new TableModelListener() {
+//            @Override
+//            public void tableChanged(TableModelEvent e) {
+//                jtable1TableChanged(e);
+//            }
+//        });
     }
 
+    
+    public void jtable1TableChanged(TableModelEvent e){  
+        this.sumatot();
+        this.sumaDes();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,7 +204,8 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         // TODO add your handling code here:
         Object []a = {"","","","","","","",""};         
         this.modelot.ingresarUsuario(a);
-        this.sumaDes();
+//        this.sumaDes();
+           this.modelot.fireTableCellUpdated(0, 6);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -253,7 +266,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
             int parseInt = Integer.parseInt(text);
             int parseInt1 = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
             int resultado = parseInt*parseInt1;
-            jTable1.setValueAt(resultado, jTable1.getSelectedRow(), 6);
+            jTable1.setValueAt(resultado+"", jTable1.getSelectedRow(), 6);       
         }catch(Exception r){
             
         }
@@ -269,15 +282,23 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     }
 
     public void sumatot() {
-        int sumTot=0;
+        int sumTot=0;  
         for(int i=0;i<this.jTable1.getRowCount();i++){
             try{
-            int parseInt = Integer.parseInt((String) this.modelot.getValueAt(i, 6));
+            int parseInt = Integer.parseInt((String) this.jTable1.getValueAt(i, 6));
             sumTot = sumTot + parseInt;
             }catch(Exception e){
                sumTot=+sumTot;  
             }
         this.Total.setText(sumTot+""); 
+        }
+    }
+
+    public void pretotaDes(String caretotades) {
+        try{
+            jTable1.setValueAt(caretotades+"", jTable1.getSelectedRow(), 7);       
+        }catch(Exception r){
+            
         }
     }
     

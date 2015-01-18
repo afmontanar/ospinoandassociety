@@ -111,7 +111,7 @@ import javax.swing.table.AbstractTableModel;
      
      public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
-         //quede en bloquear la columna 6 0k
+//         quede en bloquear la columna 6 0k 
                 if(col==6){
                     return false;
                 }else{

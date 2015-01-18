@@ -22,16 +22,16 @@ public class TexfieldTRC extends JTextField {
     public TexfieldTRC(HistoriaVehiculos r) {
         super();
         this.r=r;
-        this.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                esteIdFocusLost(evt);
-            }
-        });
-        this.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                esteFocusGained(evt);
-            }
-        });
+//        this.addFocusListener(new java.awt.event.FocusAdapter() {
+//            public void focusLost(java.awt.event.FocusEvent evt) {
+//                esteIdFocusLost(evt);
+//            }
+//        });
+//        this.addFocusListener(new java.awt.event.FocusAdapter() {
+//            public void focusGained(java.awt.event.FocusEvent evt) {
+//                esteFocusGained(evt);
+//            }
+//        });
          this.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 NumeroIdCaretUpdate(evt);
@@ -44,18 +44,18 @@ public class TexfieldTRC extends JTextField {
 //        });
     }
 
-    private void esteIdFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here: Aca voy ha buscar el dueno
-       
-            this.tratamientoEvtF();
-    }
-    
-     private void esteFocusGained(FocusEvent evt) {
-            this.tratamientoEvtF();
-     }
+//    private void esteIdFocusLost(java.awt.event.FocusEvent evt) {
+//        // TODO add your handling code here: Aca voy ha buscar el dueno
+//            this.tratamientoEvtF();
+//    }
+//    
+//     private void esteFocusGained(FocusEvent evt) {
+//            this.tratamientoEvtF();
+//     }
 
     public void tratamientoEvtF() {
         try {
+            this.r.pretotaDes(this.getText());
             this.r.sumaDes();
         } catch (Exception e) {
         }

@@ -29,8 +29,7 @@ public class TexfieldCxVu extends JTextField {
     }
 
     public void tratamientoEvtC() {
-        try {
-            
+        try {       
             this.r.multiCxVu(this.getText());
             this.r.sumatot();
         } catch (Exception e) {
@@ -40,4 +39,5 @@ public class TexfieldCxVu extends JTextField {
       private void NumeroIdCaretUpdate(CaretEvent evt) {
               this.tratamientoEvtC(); 
       }
+      
 }

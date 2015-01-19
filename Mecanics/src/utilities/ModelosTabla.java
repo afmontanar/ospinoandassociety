@@ -170,6 +170,7 @@ import javax.swing.table.AbstractTableModel;
         
          public void vaciarTabla() {
             usuarios.clear();
+            this.reload();
         }
          
          public void reload(){

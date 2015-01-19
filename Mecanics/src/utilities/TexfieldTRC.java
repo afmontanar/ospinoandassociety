@@ -5,7 +5,6 @@
  */
 package utilities;
 
-import java.awt.event.FocusEvent;
 import javax.swing.JTextField;
 import javax.swing.event.CaretEvent;
 import mecanics.HistoriaVehiculos;

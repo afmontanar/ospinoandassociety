@@ -25,9 +25,9 @@ public class GrillaChofer extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         String n[] = {"Identificacion","Nombres","Apellidos","Direccion","Celular","Detalle","clienteid"};
-        this.modelot = new utilities.ModelosTablaS(n, jTable1);
+        this.modelot = new utilities.ModelosTablaS(n, jTable1,"chofer");
         jTable1.setModel(this.modelot);
-        this.llenarTabla();
+//        this.llenarTabla();
     }
 
     /**

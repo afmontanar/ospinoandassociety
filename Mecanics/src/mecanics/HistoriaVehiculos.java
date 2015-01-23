@@ -294,7 +294,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void guardar() {
         String i = ((javax.swing.JTextField) fecha.getDateEditor().getUiComponent()).getText();
         try {
-            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `valorTotal`, `valorTotalConDescuento`, `indice`) VALUES ('" + this.nombre.getText() + "', '" + this.placa.getText() + "', '" + this.idCliente + "', '" + this.idChofer + "', '" + i + "', '" + this.Total.getText() + "', '" + this.Totaldes.getText() + "','')");
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `valorTotal`, `valorTotalConDescuento`, `indice`) VALUES ('" + this.nombre.getText() + "', '" + this.placa.getText() + "', '" + this.idCliente + "', '" + this.idChofer + "', '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"', '" + this.Total.getText() + "', '" + this.Totaldes.getText() + "','')");
             JOptionPane.showMessageDialog(this, "Guardado con exito");
             this.reiniciarformulario();
         } catch (SQLException ex) {

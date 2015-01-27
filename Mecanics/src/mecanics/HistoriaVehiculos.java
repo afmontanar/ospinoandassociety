@@ -337,12 +337,12 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     }
 
     private void guardarDetalles() {
-        
+        for (int i=0;i<this.modelot.getRowCount();i++){
         try {
-            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`DetalleHistoriaVehiculo` (`codhistori`, `cantidad`, `Marca`, `Referencia`, `Detalle`, `Rueda`, `Valorunitario`, `valorTotal`, `Valordescuento`) VALUES ('"+this.obtenerUingresado1()+"', '"++"', 'b', 'c', 'd', 'e', 'f', 'g', 'h')");         
-        
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`DetalleHistoriaVehiculo` (`codhistori`, `cantidad`, `Marca`, `Referencia`, `Detalle`, `Rueda`, `Valorunitario`, `valorTotal`, `Valordescuento`) VALUES ('"+this.obtenerUingresado1()+"', '"+jTable1.getValueAt(i, 0)+"', '"+jTable1.getValueAt(i, 1)+"', '"+jTable1.getValueAt(i, 2)+"', '"+jTable1.getValueAt(i, 3)+"', '"+jTable1.getValueAt(i, 4)+"', '"+jTable1.getValueAt(i, 5)+"', '"+jTable1.getValueAt(i, 6)+"', '"+jTable1.getValueAt(i, 7)+"')");         
         } catch (SQLException ex) {
             Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
 

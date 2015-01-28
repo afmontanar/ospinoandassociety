@@ -139,9 +139,7 @@ public class Principal extends javax.swing.JFrame {
 //        this.cliente.setVisible(prendido);
 //    }
     
-    protected void setGrillaClienteVisibility(boolean prendido){
-        this.gcliente.setVisible(prendido);
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox jComboBox1;
     private javax.swing.JDesktopPane jDesktopPane2;
@@ -166,5 +164,10 @@ public class Principal extends javax.swing.JFrame {
 
     void gChoferAhv(String identificacion, String nombres) {
         this.hvehiculo.obtenerDChofer(identificacion,nombres);
+    }
+
+    void setGrillaClienteVisibility(boolean b, int i) {
+        this.gcliente.quienPide(i);
+        this.gcliente.setVisible(b);
     }
 }

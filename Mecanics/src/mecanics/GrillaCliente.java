@@ -20,6 +20,7 @@ public class GrillaCliente extends javax.swing.JDialog {
      * Creates new form GrillaCliente
      */
     private utilities.ModelosTablaS modelot;
+    private int elquepide;
     
     public GrillaCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -203,7 +204,7 @@ public class GrillaCliente extends javax.swing.JDialog {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount()==2){
-            this.enviarHv();
+            this.enviar();
             this.setVisible(false);
         }
     }//GEN-LAST:event_jTable1MouseClicked
@@ -265,6 +266,19 @@ public class GrillaCliente extends javax.swing.JDialog {
         this.modelot.reload();
         } catch (SQLException ex) {
             Logger.getLogger(GrillaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void quienPide(int i) {
+        this.elquepide=i;
+    }
+
+    private void enviar() {
+        if(this.elquepide==0){
+            enviarHv();
+        }
+        if(this.elquepide==1){
+            
         }
     }
 }

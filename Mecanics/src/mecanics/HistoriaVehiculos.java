@@ -94,6 +94,11 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
         placa.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa"));
         placa.setName("Nombre"); // NOI18N
+        placa.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                placaCaretUpdate(evt);
+            }
+        });
         jPanel1.add(placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 180, 40));
 
         nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
@@ -204,7 +209,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here: Aca voy ha buscar el dueno
         Principal r = (Principal) super.getParent();
-        r.setGrillaClienteVisibility(true);
+        r.setGrillaClienteVisibility(true,0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -229,6 +234,10 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.guardar();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void placaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_placaCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_placaCaretUpdate
 
 //     public void sumaDes(int suplemento){
     public void sumaDes() {

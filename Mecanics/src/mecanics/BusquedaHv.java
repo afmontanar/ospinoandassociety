@@ -5,6 +5,10 @@
  */
 package mecanics;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,9 +20,17 @@ public class BusquedaHv extends javax.swing.JDialog {
     /**
      * Creates new form BusquedaHv
      */
-    public BusquedaHv(java.awt.Frame parent, boolean modal) {
+    private Object idCliente;
+    private utilities.ModelosTablaS modelot;   
+        
+    public BusquedaHv(java.awt.Frame parent, boolean modal) {       
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        String n[] = {"codhistori","cantidad","Marca","Referencia","Detalle","Rueda","Valorunitario","valorTotal","Valordescuento"};
+        this.modelot = new utilities.ModelosTablaS(n, jTable1);
+        jTable1.setModel(this.modelot);
+        this.llenarTabla();
     }
 
     /**
@@ -33,7 +45,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        nombre = new javax.swing.JTextField();
+        Cantidad = new javax.swing.JTextField();
         placa = new javax.swing.JTextField();
         dueno = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -49,6 +61,8 @@ public class BusquedaHv extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        nombre = new javax.swing.JTextField();
+        Codigo = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,14 +81,14 @@ public class BusquedaHv extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
-        nombre.setName("nombre"); // NOI18N
-        nombre.addCaretListener(new javax.swing.event.CaretListener() {
+        Cantidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad"));
+        Cantidad.setName("Cantidad"); // NOI18N
+        Cantidad.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                nombreCaretUpdate(evt);
+                CantidadCaretUpdate(evt);
             }
         });
-        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 180, 40));
+        jPanel1.add(Cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 180, 40));
 
         placa.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa"));
         placa.setName("Nombre"); // NOI18N
@@ -150,6 +164,24 @@ public class BusquedaHv extends javax.swing.JDialog {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 1200, 400));
 
+        nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
+        nombre.setName("nombre"); // NOI18N
+        nombre.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                nombreCaretUpdate(evt);
+            }
+        });
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 180, 40));
+
+        Codigo.setBorder(javax.swing.BorderFactory.createTitledBorder("Codigo"));
+        Codigo.setName("Codigo"); // NOI18N
+        Codigo.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                CodigoCaretUpdate(evt);
+            }
+        });
+        jPanel1.add(Codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 180, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,10 +196,10 @@ public class BusquedaHv extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreCaretUpdate
+    private void CantidadCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_CantidadCaretUpdate
         // TODO add your handling code here:
         this.busquedaHv();
-    }//GEN-LAST:event_nombreCaretUpdate
+    }//GEN-LAST:event_CantidadCaretUpdate
 
     private void placaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_placaCaretUpdate
         // TODO add your handling code here:
@@ -190,12 +222,22 @@ public class BusquedaHv extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void nombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreCaretUpdate
+
+    private void CodigoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_CodigoCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodigoCaretUpdate
+
     /**
      * @param args the command line arguments
      */
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Cantidad;
+    private javax.swing.JTextField Codigo;
     private javax.swing.JLabel chofer;
     private javax.swing.JLabel dueno;
     private com.toedter.calendar.JDateChooser fecha;
@@ -218,6 +260,19 @@ public class BusquedaHv extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void busquedaHv() {
+        this.modelot.vaciarTabla();
+        try {
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `DetalleHistoriaVehiculo` WHERE `codhistori` LIKE  '%"+this.Codigo.getText()+"%' AND `cantidad` LIKE 'q' AND `Marca` LIKE 'q' AND `Referencia` LIKE 'q' AND `Detalle` LIKE 'q' AND `Rueda` LIKE 'q' AND `Valorunitario` LIKE 'q' AND `valorTotal` LIKE 'q' AND `Valordescuento` LIKE 'q'");
+            if(MysqlConsulta.next()){               
+               return MysqlConsulta.getString("indice");
+            }       
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+
+    private void llenarTabla() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

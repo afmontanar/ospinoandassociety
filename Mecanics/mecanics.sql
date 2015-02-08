@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-01-2015 a las 10:07:47
+-- Tiempo de generación: 07-02-2015 a las 23:35:06
 -- Versión del servidor: 5.5.41-0ubuntu0.14.10.1
 -- Versión de PHP: 5.5.12-2ubuntu4.1
 
@@ -111,7 +111,8 @@ INSERT INTO `DetalleHistoriaVehiculo` (`codhistori`, `cantidad`, `Marca`, `Refer
 ('7', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
 ('7', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
 ('8', '2', 'xxx', 'xxxx', 'xxx', 'xxx', '12000', '24000', '22000'),
-('8', '2', 'yyy', 'yyyy', 'yyy', 'yyy', '14000', '28000', '23000');
+('8', '2', 'yyy', 'yyyy', 'yyy', 'yyy', '14000', '28000', '23000'),
+('9', '2', 'osi', 'osi', 'qqw', 'derecha', '120000', '240000', '220000');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `historiaVehiculo` (
   `valorTotal` varchar(20) DEFAULT NULL,
   `valorTotalConDescuento` varchar(20) DEFAULT NULL,
 `indice` bigint(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `historiaVehiculo`
@@ -154,13 +155,13 @@ CREATE TABLE IF NOT EXISTS `historiaVehiculo` (
 
 INSERT INTO `historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `valorTotal`, `valorTotalConDescuento`, `indice`) VALUES
 ('toyota', 'and7', '110021212', '1235456', '2015-01-10 00:00:00', '12000', '160000', 1),
-('', '', '', '', '0000-00-00 00:00:00', '20000', '12000', 2),
 ('m', 'a', 'a', 'a', '2015-01-19 00:00:00', '12', '12', 3),
 ('chevrolet', 'uvr123', '11006688005', '1100688006', '2015-01-19 00:00:00', '20000', '17000', 4),
 ('chevrolet', 'oe12', '11006688005', '1100688006', '2015-01-19 00:00:00', '26000', '23000', 5),
 ('lanborgini', 'cr7', '11006688005', 'Identificacion', '2015-01-27 09:11:00', '24000', '20000', 6),
 ('toyuirie', 'cr7', '11006688005', '1100688006', '2015-01-27 09:24:00', '63000', '57000', 7),
-('camaro', 'yryo32', '11006688005', '1100688006', '2015-01-27 09:35:00', '52000', '45000', 8);
+('camaro', 'yryo32', '11006688005', '1100688006', '2015-01-27 09:35:00', '52000', '45000', 8),
+('camaro', 'owei2', '11006688005', '1100688006', '0000-00-00 00:00:00', '240000', '220000', 9);
 
 --
 -- Índices para tablas volcadas
@@ -180,7 +181,7 @@ ALTER TABLE `historiaVehiculo`
 -- AUTO_INCREMENT de la tabla `historiaVehiculo`
 --
 ALTER TABLE `historiaVehiculo`
-MODIFY `indice` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `indice` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

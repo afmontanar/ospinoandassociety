@@ -278,7 +278,13 @@ public class GrillaCliente extends javax.swing.JDialog {
             enviarHv();
         }
         if(this.elquepide==1){
-            
+            enviarHv1();
         }
     }
+
+    private void enviarHv1() {
+        Principal r=(Principal) super.getParent();
+        r.setGrillaHistoriaVCli(this.modelot.getValueAt(this.jTable1.getSelectedRow(), 0),this.modelot.getValueAt(this.jTable1.getSelectedRow(), 4));  
+    }
+    
 }

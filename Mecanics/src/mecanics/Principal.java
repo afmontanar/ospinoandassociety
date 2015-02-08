@@ -17,6 +17,7 @@ public class Principal extends javax.swing.JFrame {
     private final HistoriaVehiculos hvehiculo;
     private final GrillaCliente gcliente;
     private final GrillaChofer gchofer;
+    private final BusquedaHv BusqHv;
     /**
      * Creates new form Principal
      */
@@ -27,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
         this.hvehiculo = new HistoriaVehiculos(this, true);
         this.gcliente = new GrillaCliente(this, true);
         this.gchofer = new GrillaChofer(this, true);
+        this.BusqHv = new BusquedaHv(this, true);
     }
 
    
@@ -49,6 +51,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        BusquedaHv = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -92,6 +95,14 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem1);
 
+        BusquedaHv.setText("Busqueda Hv");
+        BusquedaHv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BusquedaHvActionPerformed(evt);
+            }
+        });
+        jMenu4.add(BusquedaHv);
+
         jMenuBar2.add(jMenu4);
 
         setJMenuBar(jMenuBar2);
@@ -119,8 +130,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -135,12 +145,19 @@ public class Principal extends javax.swing.JFrame {
         this.hvehiculo.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void BusquedaHvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaHvActionPerformed
+        // TODO add your handling code here:
+        this.poder = this.hvehiculo;
+        this.BusqHv.setVisible(true);
+    }//GEN-LAST:event_BusquedaHvActionPerformed
+
 //    protected void setHistoriaVehiculosVisibility(boolean prendido){
 //        this.cliente.setVisible(prendido);
 //    }
     
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem BusquedaHv;
     public static javax.swing.JComboBox jComboBox1;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel2;
@@ -169,5 +186,9 @@ public class Principal extends javax.swing.JFrame {
     void setGrillaClienteVisibility(boolean b, int i) {
         this.gcliente.quienPide(i);
         this.gcliente.setVisible(b);
+    }
+
+    void setGrillaHistoriaVCli(Object nombre, Object identificacion) {
+        this.BusqHv.setCliente(nombre, identificacion);
     }
 }

@@ -7,8 +7,6 @@ package mecanics;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,9 +25,9 @@ public class BusquedaHv extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        String n[] = {"codhistori","cantidad","Marca","Referencia","Detalle","Rueda","Valorunitario","valorTotal","Valordescuento"};
-        this.modelot = new utilities.ModelosTablaS(n, jTable1);
-        jTable1.setModel(this.modelot);
+        String n[] = {"indice","nombre","placa","dueno","chofer","Fecha","valorTotal","valorTotalConDescuento"};
+        this.modelot = new utilities.ModelosTablaS(n, jTable2);
+        jTable2.setModel(this.modelot);
         this.llenarTabla();
     }
 
@@ -67,6 +65,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         horaf = new javax.swing.JComboBox();
         minutof = new javax.swing.JComboBox();
         segundof = new javax.swing.JComboBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,6 +148,7 @@ public class BusquedaHv extends javax.swing.JDialog {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        /*
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -160,6 +160,7 @@ public class BusquedaHv extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        */
         jScrollPane3.setViewportView(jTable2);
 
         jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1980, -1));
@@ -202,6 +203,9 @@ public class BusquedaHv extends javax.swing.JDialog {
         segundof.setBorder(javax.swing.BorderFactory.createTitledBorder("Segundo"));
         jPanel1.add(segundof, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 110, 80, 70));
 
+        jCheckBox1.setText("Incluir busqueda de fechas");
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -210,7 +214,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
         );
 
         pack();
@@ -244,10 +248,12 @@ public class BusquedaHv extends javax.swing.JDialog {
 
     private void nombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreCaretUpdate
         // TODO add your handling code here:
+        busquedaHv();
     }//GEN-LAST:event_nombreCaretUpdate
 
     private void valtotalCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_valtotalCaretUpdate
         // TODO add your handling code here:
+        busquedaHv();
     }//GEN-LAST:event_valtotalCaretUpdate
 
     /**
@@ -264,6 +270,7 @@ public class BusquedaHv extends javax.swing.JDialog {
     private javax.swing.JComboBox horai;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -286,19 +293,54 @@ public class BusquedaHv extends javax.swing.JDialog {
     private void busquedaHv() {
         this.modelot.vaciarTabla();
         String i = ((javax.swing.JTextField) fechai.getDateEditor().getUiComponent()).getText();
+        ResultSet MysqlConsulta=null;
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `fecha` => '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` =< '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"'%");
+            //ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `fecha` => '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` =< '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"'%");
+            if(jCheckBox1.isSelected()){
+               MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `fecha` => '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` =< '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'"); 
+            }else{
+                MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'");
+            }
             while(MysqlConsulta.next()){               
-               String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),MysqlConsulta.getString("fecha"),MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento"),	MysqlConsulta.getString("indice")};
+               String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),MysqlConsulta.getString("fecha"),MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};
                this.modelot.ingresarUsuario(a);
             }       
         } catch (SQLException ex) {
-            Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),"0000-00-00 00:00:00",MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};
+                this.modelot.ingresarUsuario(a);
+            } catch (SQLException ex1) {
+                JOptionPane.showMessageDialog(rootPane, "A ocurrido un error inexperado");
+            }
         }
         this.modelot.reload();
     }
 
     private void llenarTabla() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.modelot.vaciarTabla();
+        String i = ((javax.swing.JTextField) fechai.getDateEditor().getUiComponent()).getText();
+        ResultSet MysqlConsulta=null;
+        try {
+            MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo`");
+            while(MysqlConsulta.next()){               
+               String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),MysqlConsulta.getString("fecha"),MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};
+               this.modelot.ingresarUsuario(a);
+            }       
+        }catch (SQLException ex) {
+            try {
+                String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),"0000-00-00 00:00:00",MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};
+                this.modelot.ingresarUsuario(a);
+            } catch (SQLException ex1) {
+                JOptionPane.showMessageDialog(rootPane, "A ocurrido un error inexperado");
+            }
+               
+        }
+        this.modelot.reload();
     }
+
+    void setCliente(Object nombre, Object identificacion) {
+        dueno.setText(nombre+"");
+        this.idCliente=identificacion;
+    }
+    
 }

@@ -216,7 +216,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (null != this.idCliente) {
             Principal r = (Principal) super.getParent();
-            r.getGrillaChofer(this.idCliente.toString());
+            r.getGrillaChofer(this.idCliente.toString(),0);
         } else {
             JOptionPane.showMessageDialog(this, "No a seleccionado dueno");
         }

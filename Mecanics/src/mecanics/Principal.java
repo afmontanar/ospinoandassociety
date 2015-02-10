@@ -170,8 +170,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    void getGrillaChofer(String toString) {
-        this.gchofer.alimentarGrillaChofer(toString);
+    void getGrillaChofer(String toString, int s) {
+        this.gchofer.alimentarGrillaChofer(toString,s);
         this.gchofer.setVisible(true);
     }
 
@@ -191,4 +191,10 @@ public class Principal extends javax.swing.JFrame {
     void setGrillaHistoriaVCli(Object nombre, Object identificacion) {
         this.BusqHv.setCliente(nombre, identificacion);
     }
+
+    void gChoferABhv(String identificacion, String nombres) {
+        this.BusqHv.obtenerDChofer(identificacion,nombres);
+    }
+
+    
 }

@@ -20,6 +20,7 @@ public class BusquedaHv extends javax.swing.JDialog {
      */
     private Object idCliente;
     private utilities.ModelosTablaS modelot;   
+    private String idChofer;
         
     public BusquedaHv(java.awt.Frame parent, boolean modal) {       
         super(parent, modal);
@@ -125,7 +126,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 60, 30, 40));
 
         fechai.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha inicial"));
-        fechai.setDateFormatString("yyyy/MM/dd");
+        fechai.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(fechai, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 180, 40));
 
         horai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "" }));
@@ -188,7 +189,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         jPanel1.add(valtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 180, 40));
 
         fechaf.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha final"));
-        fechaf.setDateFormatString("yyyy/MM/dd");
+        fechaf.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(fechaf, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 180, 40));
 
         horaf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "" }));
@@ -240,7 +241,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (null != this.idCliente) {
             Principal r = (Principal) super.getParent();
-            r.getGrillaChofer(this.idCliente.toString());
+            r.getGrillaChofer(this.idCliente.toString(),1);
         } else {
             JOptionPane.showMessageDialog(this, "No a seleccionado dueno");
         }
@@ -297,9 +298,9 @@ public class BusquedaHv extends javax.swing.JDialog {
         try {
             //ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `fecha` => '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` =< '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"'%");
             if(jCheckBox1.isSelected()){
-               MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `fecha` => '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` =< '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'"); 
+               MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.idCliente+"%' AND `chofer` LIKE '%"+this.idChofer+"%' AND `fecha` >= '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` <= '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'"); 
             }else{
-                MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'");
+                MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.idCliente+"%' AND `chofer` LIKE '%"+this.idChofer+"%' AND `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'");
             }
             while(MysqlConsulta.next()){               
                String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),MysqlConsulta.getString("fecha"),MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};
@@ -341,6 +342,13 @@ public class BusquedaHv extends javax.swing.JDialog {
     void setCliente(Object nombre, Object identificacion) {
         dueno.setText(nombre+"");
         this.idCliente=identificacion;
+    }
+
+    
+
+    void obtenerDChofer(String identificacion, String nombres) {
+        this.chofer.setText(nombres);
+        this.idChofer = identificacion;
     }
     
 }

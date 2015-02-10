@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class GrillaChofer extends javax.swing.JDialog {
 
      private utilities.ModelosTablaS modelot;
+    private int s;
     /**
      * Creates new form GrillaChofer
      */
@@ -88,8 +89,13 @@ public class GrillaChofer extends javax.swing.JDialog {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount()==2){
+            if(this.s==0){
             this.mandarDatosHv();
             this.setVisible(false);
+            }else if(this.s==1){
+               this.mandarDatosBhv();
+               this.setVisible(false);
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -103,7 +109,8 @@ public class GrillaChofer extends javax.swing.JDialog {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    void alimentarGrillaChofer(String toString) {
+    void alimentarGrillaChofer(String toString, int s) {
+        this.s = s;
         this.modelot.vaciarTabla();
         try {
             ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `chofer` where clienteid = '"+toString+"'");
@@ -135,5 +142,11 @@ public class GrillaChofer extends javax.swing.JDialog {
          int selectedRow = jTable1.getSelectedRow();
          Principal parent = (Principal) super.getParent();
          parent.gChoferAhv(jTable1.getValueAt(selectedRow, 0)+"",jTable1.getValueAt(selectedRow, 1)+"");
+    }
+
+    private void mandarDatosBhv() {
+         int selectedRow = jTable1.getSelectedRow();
+         Principal parent = (Principal) super.getParent();
+         parent.gChoferABhv(jTable1.getValueAt(selectedRow, 0)+"",jTable1.getValueAt(selectedRow, 1)+"");
     }
 }

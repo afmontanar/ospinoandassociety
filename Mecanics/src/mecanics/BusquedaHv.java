@@ -30,6 +30,8 @@ public class BusquedaHv extends javax.swing.JDialog {
         this.modelot = new utilities.ModelosTablaS(n, jTable2);
         jTable2.setModel(this.modelot);
         this.llenarTabla();
+        this.idChofer = "";
+        this.idCliente = "";
     }
 
     /**
@@ -294,13 +296,14 @@ public class BusquedaHv extends javax.swing.JDialog {
     private void busquedaHv() {
         this.modelot.vaciarTabla();
         String i = ((javax.swing.JTextField) fechai.getDateEditor().getUiComponent()).getText();
+        String f = ((javax.swing.JTextField) fechaf.getDateEditor().getUiComponent()).getText();
         ResultSet MysqlConsulta=null;
         try {
             //ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.dueno.getText()+"%' AND `chofer` LIKE '%"+this.chofer.getText()+"%' AND `fecha` => '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` =< '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"'%");
             if(jCheckBox1.isSelected()){
-               MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.idCliente+"%' AND `chofer` LIKE '%"+this.idChofer+"%' AND `fecha` >= '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND `fecha` <= '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'"); 
+               MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.idCliente+"%' AND `chofer` LIKE '%"+this.idChofer+"%' AND (`fecha` >= '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"' and `fecha` <= '" + f + " "+this.horaf.getSelectedItem()+":"+this.minutof.getSelectedItem()+":"+this.segundof.getSelectedItem()+"') AND  `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'"); 
             }else{
-                MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.idCliente+"%' AND `chofer` LIKE '%"+this.idChofer+"%' AND `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'");
+               MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo` WHERE `nombre` LIKE '%"+this.nombre.getText()+"%' AND `placa` LIKE '%"+this.placa.getText()+"%' AND `dueno` LIKE '%"+this.idCliente+"%' AND `chofer` LIKE '%"+this.idChofer+"%' AND `valorTotal` LIKE '%"+this.valtotal.getText()+"%' AND `valorTotalConDescuento` LIKE '%"+this.valdesc.getText()+"%'");
             }
             while(MysqlConsulta.next()){               
                String a[] ={MysqlConsulta.getString("indice"),MysqlConsulta.getString("nombre"),MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"),MysqlConsulta.getString("chofer"),MysqlConsulta.getString("fecha"),MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};

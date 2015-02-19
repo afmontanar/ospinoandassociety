@@ -83,6 +83,11 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         segundoi = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -236,6 +241,12 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_placaCaretUpdate
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.jTable1.setModel(modelot);
+        this.reiniciarformulario();
+    }//GEN-LAST:event_formWindowClosing
+
 //     public void sumaDes(int suplemento){
     public void sumaDes() {
         int sumTot = 0;
@@ -340,7 +351,26 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         this.modelot.vaciarTabla();
         nombre.setText("");
         placa.setText("");
-    }
+        this.nombre.setEnabled(true);
+        this.placa.setEnabled(true);
+        this.dueno.setEnabled(true);
+        this.chofer.setEnabled(true);
+        this.fecha.setEnabled(true);
+        this.horai.setEnabled(true);
+        this.minutoi.setEnabled(true);
+        this.segundoi.setEnabled(true);
+        this.jButton3.setEnabled(true);
+        this.agreregistro.setEnabled(true);
+        this.jButton2.setEnabled(true);
+        this.jButton1.setEnabled(true);
+        this.horai.setSelectedItem("00");
+        this.minutoi.setSelectedItem("00");
+        this.segundoi.setSelectedItem("00");
+        TableColumn column = this.jTable1.getColumnModel().getColumn(7);
+        column.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTRC(this)));
+        TableColumn column1 = this.jTable1.getColumnModel().getColumn(5);
+        column1.setCellEditor(new DefaultCellEditor(new utilities.TexfieldCxVu(this)));
+        }
 
     private void guardarDetalles() {
         for (int i=0;i<this.modelot.getRowCount();i++){
@@ -410,14 +440,14 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     }
 
     private void alimentarGrilla(String indice) {
-        this.modelot.vaciarTabla();
+        this.modelotS.vaciarTabla();
         try {
             ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `DetalleHistoriaVehiculo` WHERE `codhistori` LIKE '"+indice+"'");
             while(MysqlConsulta.next()){
                 String d[]={MysqlConsulta.getString("codhistori"), MysqlConsulta.getString("cantidad"),MysqlConsulta.getString("Marca"),MysqlConsulta.getString("Referencia"),MysqlConsulta.getString("Detalle"), MysqlConsulta.getString("Rueda"), MysqlConsulta.getString("Valorunitario"),MysqlConsulta.getString("valorTotal"),MysqlConsulta.getString("Valordescuento")};
-                this.modelot.ingresarUsuarioM(d);
+                this.modelotS.ingresarUsuarioM(d);
             }
-            this.modelot.reload();
+            this.modelotS.reload();
         } catch (SQLException ex) {
             Logger.getLogger(GrillaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }  

@@ -180,6 +180,11 @@ public class BusquedaHv extends javax.swing.JDialog {
             }
         ));
         */
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1980, -1));
@@ -335,6 +340,13 @@ public class BusquedaHv extends javax.swing.JDialog {
         busquedaHv();
     }//GEN-LAST:event_segundofActionPerformed
 
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount()==2){
+            EnviarConsultarHv();
+        }
+    }//GEN-LAST:event_jTable2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -448,5 +460,13 @@ public class BusquedaHv extends javax.swing.JDialog {
         this.llenarTabla();
         this.jCheckBox1.setSelected(false);
     }
+
+    private void EnviarConsultarHv() {
+         int selectedRow = jTable2.getSelectedRow();
+         Principal parent = (Principal) super.getParent();
+         parent.mostrarHv(jTable2.getValueAt(selectedRow, 0)+"",jTable2.getValueAt(selectedRow, 1)+"",jTable2.getValueAt(selectedRow, 2)+"",jTable2.getValueAt(selectedRow, 3)+"",jTable2.getValueAt(selectedRow, 4)+"",jTable2.getValueAt(selectedRow, 5)+"",jTable2.getValueAt(selectedRow, 6)+"",jTable2.getValueAt(selectedRow, 7)+"");
+    }
+
+   
     
 }

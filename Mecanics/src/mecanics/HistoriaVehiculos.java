@@ -5,14 +5,18 @@
  */
 package mecanics;
 
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableColumn;
+import utilities.ModelosTablaS;
 import utilities.ValidarCamposVacios;
 
 /**
@@ -28,6 +32,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private ValidarCamposVacios objectv;
     private Object idCliente;
     private String idChofer;
+    private ModelosTablaS modelotS;
 
     public HistoriaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -40,14 +45,6 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         column.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTRC(this)));
         TableColumn column1 = this.jTable1.getColumnModel().getColumn(5);
         column1.setCellEditor(new DefaultCellEditor(new utilities.TexfieldCxVu(this)));
-//        TableColumn column2 = this.jTable1.getColumnModel().getColumn(6);
-//        column2.setCellEditor(new DefaultCellEditor(new utilities.TexfieldTcd(this)));      
-//        this.modelot.addTableModelListener(new TableModelListener() {
-//            @Override
-//            public void tableChanged(TableModelEvent e) {
-//                jtable1TableChanged(e);
-//            }
-//        });
     }
 
     public void jtable1TableChanged(TableModelEvent e) {
@@ -79,7 +76,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         Total = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        agreregistro = new javax.swing.JToggleButton();
         Totaldes = new javax.swing.JLabel();
         horai = new javax.swing.JComboBox();
         minutoi = new javax.swing.JComboBox();
@@ -164,13 +161,13 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         Total.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
         jPanel1.add(Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 590, 240, 50));
 
-        jToggleButton1.setText("Agregar registro");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        agreregistro.setText("Agregar registro");
+        agreregistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                agreregistroActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, -1));
+        jPanel1.add(agreregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, -1));
 
         Totaldes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Totaldes.setBorder(javax.swing.BorderFactory.createTitledBorder("Total con descuento"));
@@ -222,13 +219,13 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void agreregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agreregistroActionPerformed
         // TODO add your handling code here:
         Object[] a = {"", "", "", "", "", "", "", ""};
         this.modelot.ingresarUsuario(a);
 //        this.sumaDes();
         this.modelot.fireTableCellUpdated(0, 6);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_agreregistroActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -260,6 +257,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Total;
     private javax.swing.JLabel Totaldes;
+    private javax.swing.JToggleButton agreregistro;
     private javax.swing.JLabel chofer;
     private javax.swing.JLabel dueno;
     private com.toedter.calendar.JDateChooser fecha;
@@ -273,7 +271,6 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JComboBox minutoi;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField placa;
@@ -380,6 +377,63 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
             Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
+    }
+
+    void alimentarHv(String indice, String nombre, String placa, String dueno, String chofer, String fecha, String valorTotal, String valortotaldescuento) {
+        this.desabilitarFormulario();
+        this.nombre.setText(nombre);
+        this.placa.setText(placa);
+        this.dueno.setText(dueno);
+        this.chofer.setText(chofer);
+        this.ajustarFecha(fecha);
+        this.Total.setText(valorTotal);
+        this.Totaldes.setText(valortotaldescuento);
+        this.alimentarGrilla(indice);
+    }
+
+    private void desabilitarFormulario() {
+        this.nombre.setEnabled(false);
+        this.placa.setEnabled(false);
+        this.dueno.setEnabled(false);
+        this.chofer.setEnabled(false);
+        this.fecha.setEnabled(false);
+        this.horai.setEnabled(false);
+        this.minutoi.setEnabled(false);
+        this.segundoi.setEnabled(false);
+        this.jButton3.setEnabled(false);
+        this.agreregistro.setEnabled(false);
+        this.jButton2.setEnabled(false);
+        this.jButton1.setEnabled(false);
+        String n[] = {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
+        this.modelotS = new utilities.ModelosTablaS(n, jTable1);
+        this.jTable1.setModel(this.modelotS);
+    }
+
+    private void alimentarGrilla(String indice) {
+        this.modelot.vaciarTabla();
+        try {
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `DetalleHistoriaVehiculo` WHERE `codhistori` LIKE '"+indice+"'");
+            while(MysqlConsulta.next()){
+                String d[]={MysqlConsulta.getString("codhistori"), MysqlConsulta.getString("cantidad"),MysqlConsulta.getString("Marca"),MysqlConsulta.getString("Referencia"),MysqlConsulta.getString("Detalle"), MysqlConsulta.getString("Rueda"), MysqlConsulta.getString("Valorunitario"),MysqlConsulta.getString("valorTotal"),MysqlConsulta.getString("Valordescuento")};
+                this.modelot.ingresarUsuarioM(d);
+            }
+            this.modelot.reload();
+        } catch (SQLException ex) {
+            Logger.getLogger(GrillaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+
+    private void ajustarFecha(String fecha) {
+        String substring = fecha.substring(0, 10);
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");     
+        Date dato = null;
+        try { 
+            dato = formatoDelTexto.parse(substring); 
+        } catch (ParseException ex) { ex.printStackTrace(); } 
+        this.fecha.setDate(dato);
+        this.horai.setSelectedItem(fecha.substring(11, 13));
+        this.minutoi.setSelectedItem(fecha.substring(14, 16));
+        this.segundoi.setSelectedItem(fecha.substring(17, 19));
     }
 
    

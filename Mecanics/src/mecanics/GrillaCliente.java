@@ -271,6 +271,7 @@ public class GrillaCliente extends javax.swing.JDialog {
 
     void quienPide(int i) {
         this.elquepide=i;
+        this.llenarTabla();
     }
 
     private void enviar() {

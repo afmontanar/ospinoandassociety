@@ -149,6 +149,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.poder = this.hvehiculo;
         this.BusqHv.setVisible(true);
+        this.BusqHv.llenarTabla();
     }//GEN-LAST:event_BusquedaHvActionPerformed
 
 //    protected void setHistoriaVehiculosVisibility(boolean prendido){

@@ -438,11 +438,13 @@ public class BusquedaHv extends javax.swing.JDialog {
     void setCliente(Object nombre, Object identificacion) {
         dueno.setText(nombre + "");
         this.idCliente = identificacion;
+        this.busquedaHv();
     }
 
     void obtenerDChofer(String identificacion, String nombres) {
         this.chofer.setText(nombres);
         this.idChofer = identificacion;
+        this.busquedaHv();
     }
 
     private void reiniciarFormulario() {

@@ -444,7 +444,8 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         try {
             ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `DetalleHistoriaVehiculo` WHERE `codhistori` LIKE '"+indice+"'");
             while(MysqlConsulta.next()){
-                String d[]={MysqlConsulta.getString("codhistori"), MysqlConsulta.getString("cantidad"),MysqlConsulta.getString("Marca"),MysqlConsulta.getString("Referencia"),MysqlConsulta.getString("Detalle"), MysqlConsulta.getString("Rueda"), MysqlConsulta.getString("Valorunitario"),MysqlConsulta.getString("valorTotal"),MysqlConsulta.getString("Valordescuento")};
+                //MysqlConsulta.getString("codhistori"),
+                String d[]={ MysqlConsulta.getString("cantidad"),MysqlConsulta.getString("Marca"),MysqlConsulta.getString("Referencia"),MysqlConsulta.getString("Detalle"), MysqlConsulta.getString("Rueda"), MysqlConsulta.getString("Valorunitario"),MysqlConsulta.getString("valorTotal"),MysqlConsulta.getString("Valordescuento")};
                 this.modelotS.ingresarUsuarioM(d);
             }
             this.modelotS.reload();

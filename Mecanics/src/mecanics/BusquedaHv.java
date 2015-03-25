@@ -415,7 +415,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         String i = ((javax.swing.JTextField) fechai.getDateEditor().getUiComponent()).getText();
         ResultSet MysqlConsulta = null;
         try {
-            MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiaVehiculo`");
+            MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `historiavehiculo`");
             while (MysqlConsulta.next()) {
                 try {
                     String a[] = {MysqlConsulta.getString("indice"), MysqlConsulta.getString("nombre"), MysqlConsulta.getString("placa"), MysqlConsulta.getString("dueno"), MysqlConsulta.getString("chofer"), MysqlConsulta.getString("fecha"), MysqlConsulta.getString("valorTotal"), MysqlConsulta.getString("valorTotalConDescuento")};

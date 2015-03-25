@@ -16,7 +16,6 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableColumn;
-import utilities.ModelosTablaS;
 import utilities.ValidarCamposVacios;
 
 /**
@@ -32,7 +31,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private ValidarCamposVacios objectv;
     private Object idCliente;
     private String idChofer;
-    private ModelosTablaS modelotS;
+    private utilities.ModelosTabla modelotS;
 
     public HistoriaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -435,7 +434,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
         this.jButton2.setEnabled(false);
         this.jButton1.setEnabled(false);
         String n[] = {"Cantidad", "Marca", "Referencia", "Detalle", "Rueda", "Valor unitario", "Valor total", "Valor con descuento"};
-        this.modelotS = new utilities.ModelosTablaS(n, jTable1);
+        this.modelotS = new utilities.ModelosTabla(n, jTable1);
         this.jTable1.setModel(this.modelotS);
     }
 

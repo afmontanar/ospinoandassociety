@@ -221,7 +221,7 @@ public class Cliente extends javax.swing.JDialog {
 
     private void guardarC() {      
         try {
-            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`Cliente` (`TipoIdentificacion`, `primeroNombre`, `segunNombre`, `primeroApellido`, `segundoApellido`, `numeroId`, `direccion`, `celular`, `detalles`) VALUES ('"+this.tidentificacion.getSelectedItem()+"', '"+this.nombre1.getText()+"', '"+this.nombre2.getText()+"', '"+this.apellido1.getText()+"', '"+this.apellido2.getText()+"', '"+this.NumeroId.getText()+"', '"+this.direccion.getText()+"', '"+this.Celular.getText()+"', '"+this.detalles.getText()+"')");            
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`cliente` (`TipoIdentificacion`, `primeroNombre`, `segunNombre`, `primeroApellido`, `segundoApellido`, `numeroId`, `direccion`, `celular`, `detalles`) VALUES ('"+this.tidentificacion.getSelectedItem()+"', '"+this.nombre1.getText()+"', '"+this.nombre2.getText()+"', '"+this.apellido1.getText()+"', '"+this.apellido2.getText()+"', '"+this.NumeroId.getText()+"', '"+this.direccion.getText()+"', '"+this.Celular.getText()+"', '"+this.detalles.getText()+"')");            
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -246,7 +246,7 @@ public class Cliente extends javax.swing.JDialog {
 
     private boolean existeU() {
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM  `Cliente` WHERE  `numeroId` LIKE  '"+this.NumeroId.getText()+"'");
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM  `cliente` WHERE  `numeroId` LIKE  '"+this.NumeroId.getText()+"'");
             if(MysqlConsulta.next()){
                 JOptionPane.showMessageDialog(this, "Este cliente ya existe");
                 return false;

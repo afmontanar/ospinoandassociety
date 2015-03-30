@@ -311,7 +311,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void guardar() {
         String i = ((javax.swing.JTextField) fecha.getDateEditor().getUiComponent()).getText();
         try {
-            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiaVehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `valorTotal`, `valorTotalConDescuento`, `indice`) VALUES ('" + this.nombre.getText() + "', '" + this.placa.getText() + "', '" + this.idCliente + "', '" + this.idChofer + "', '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"', '" + this.Total.getText() + "', '" + this.Totaldes.getText() + "','"+this.obtenerUingresado()+"')");
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`historiavehiculo` (`nombre`, `placa`, `dueno`, `chofer`, `fecha`, `valorTotal`, `valorTotalConDescuento`, `indice`) VALUES ('" + this.nombre.getText() + "', '" + this.placa.getText() + "', '" + this.idCliente + "', '" + this.idChofer + "', '" + i + " "+this.horai.getSelectedItem()+":"+this.minutoi.getSelectedItem()+":"+this.segundoi.getSelectedItem()+"', '" + this.Total.getText() + "', '" + this.Totaldes.getText() + "','"+this.obtenerUingresado()+"')");
             this.guardarDetalles();
             JOptionPane.showMessageDialog(this, "Guardado con exito");
             this.reiniciarformulario();
@@ -374,7 +374,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void guardarDetalles() {
         for (int i=0;i<this.modelot.getRowCount();i++){
         try {
-            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`DetalleHistoriaVehiculo` (`codhistori`, `cantidad`, `Marca`, `Referencia`, `Detalle`, `Rueda`, `Valorunitario`, `valorTotal`, `Valordescuento`) VALUES ('"+this.obtenerUingresado1()+"', '"+jTable1.getValueAt(i, 0)+"', '"+jTable1.getValueAt(i, 1)+"', '"+jTable1.getValueAt(i, 2)+"', '"+jTable1.getValueAt(i, 3)+"', '"+jTable1.getValueAt(i, 4)+"', '"+jTable1.getValueAt(i, 5)+"', '"+jTable1.getValueAt(i, 6)+"', '"+jTable1.getValueAt(i, 7)+"')");         
+            NewMain.o.EjecutarMysql("INSERT INTO `mecanics`.`detallehistoriavehiculo` (`codhistori`, `cantidad`, `Marca`, `Referencia`, `Detalle`, `Rueda`, `Valorunitario`, `valorTotal`, `Valordescuento`) VALUES ('"+this.obtenerUingresado1()+"', '"+jTable1.getValueAt(i, 0)+"', '"+jTable1.getValueAt(i, 1)+"', '"+jTable1.getValueAt(i, 2)+"', '"+jTable1.getValueAt(i, 3)+"', '"+jTable1.getValueAt(i, 4)+"', '"+jTable1.getValueAt(i, 5)+"', '"+jTable1.getValueAt(i, 6)+"', '"+jTable1.getValueAt(i, 7)+"')");         
         } catch (SQLException ex) {
             Logger.getLogger(HistoriaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -383,7 +383,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
     private int obtenerUingresado() {
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT indice FROM `historiaVehiculo` WHERE `indice`=(SELECT MAX(indice) from `historiaVehiculo`) ");
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT indice FROM `historiavehiculo` WHERE `indice`=(SELECT MAX(indice) from `historiavehiculo`) ");
             if(MysqlConsulta.next()){
                 int aInt = MysqlConsulta.getInt("indice");
                return (aInt+1);
@@ -397,7 +397,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
 
      private String obtenerUingresado1() {
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT indice FROM `historiaVehiculo` WHERE `indice`=(SELECT MAX(indice) from `historiaVehiculo`) ");
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT indice FROM `historiavehiculo` WHERE `indice`=(SELECT MAX(indice) from `historiavehiculo`) ");
             if(MysqlConsulta.next()){               
                return MysqlConsulta.getString("indice");
             }
@@ -441,7 +441,7 @@ public class HistoriaVehiculos extends javax.swing.JDialog {
     private void alimentarGrilla(String indice) {
         this.modelotS.vaciarTabla();
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `DetalleHistoriaVehiculo` WHERE `codhistori` LIKE '"+indice+"'");
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `detallehistoriavehiculo` WHERE `codhistori` LIKE '"+indice+"'");
             while(MysqlConsulta.next()){
                 //MysqlConsulta.getString("codhistori"),
                 String d[]={ MysqlConsulta.getString("cantidad"),MysqlConsulta.getString("Marca"),MysqlConsulta.getString("Referencia"),MysqlConsulta.getString("Detalle"), MysqlConsulta.getString("Rueda"), MysqlConsulta.getString("Valorunitario"),MysqlConsulta.getString("valorTotal"),MysqlConsulta.getString("Valordescuento")};

@@ -31,7 +31,7 @@ public class BusquedaHv extends javax.swing.JDialog {
         String n[] = {"indice", "nombre", "placa", "dueno", "chofer", "Fecha", "valorTotal", "valorTotalConDescuento"};
         this.modelot = new utilities.ModelosTablaS(n, jTable2);
         jTable2.setModel(this.modelot);
-        //this.llenarTabla();
+        this.llenarTabla();
         this.idChofer = "";
         this.idCliente = "";
     }

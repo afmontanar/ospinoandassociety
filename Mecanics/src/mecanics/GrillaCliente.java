@@ -237,7 +237,7 @@ public class GrillaCliente extends javax.swing.JDialog {
     private void buscar() {
         this.modelot.vaciarTabla();
         try {
-            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `Cliente` WHERE `primeroNombre` LIKE '%"+this.nombre1.getText()+"%' AND "
+            ResultSet MysqlConsulta = NewMain.o.MysqlConsulta("SELECT * FROM `cliente` WHERE `primeroNombre` LIKE '%"+this.nombre1.getText()+"%' AND "
                     + "`segunNombre` LIKE '%"+this.nombre2.getText()+"%' AND `primeroApellido` LIKE '%"+this.apellido1.getText()+"%' AND `segundoApellido`"
                     + " LIKE '%"+this.apellido2.getText()+"%' AND `numeroId` LIKE '%"+this.identificacion.getText()+"%' AND `direccion` LIKE '%"+this.Direccion.getText()+"%' AND `celular` LIKE '%"+this.Celular.getText()+"%' ");
             while(MysqlConsulta.next()){
